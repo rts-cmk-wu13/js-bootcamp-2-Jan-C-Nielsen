@@ -1,34 +1,23 @@
-let addbuttons = document.querySelectorAll(".add");
-let subbuttons = document.querySelectorAll(".sub");
+let addbuttons = document.querySelectorAll(".product__add");
+let subbuttons = document.querySelectorAll(".product__sub");
 let products = Array.from(document.querySelectorAll(".product"));
 console.log(products);
-products.forEach(function(x) {
+products.forEach(function (x) {
     console.log(x);
-    
-    x.querySelector(".add").addEventListener("click", add);
-    x.querySelector(".sub").addEventListener("click", sub);  
+    x.querySelector(".product__add").addEventListener("click", calc);
+    x.querySelector(".product__sub").addEventListener("click", calc);
 })
 
-let numbers = [1,1,1];
+let numbers = [1, 1, 1];
 
-function add(e) {
-    let number = e.currentTarget.parentNode.parentNode.querySelector(".number");
-    console.log(number);
+function calc(e) {
+    console.log(e.target.getAttribute("class"));
+    let number = e.currentTarget.parentNode.parentNode.querySelector(".product__number");
     let parent = e.currentTarget.parentNode.parentNode.parentNode;
     let index = products.indexOf(parent);
-    console.log( numbers[products.indexOf(parent)]);
-    numbers[index]++;
-    console.log(numbers);
-    number.innerHTML = numbers[index] ;
-}
-
-function sub(e) {
-    let number = e.currentTarget.parentNode.parentNode.querySelector(".number");
-    console.log(number);
-    let parent = e.currentTarget.parentNode.parentNode.parentNode;
-    let index = products.indexOf(parent);
-    console.log( numbers[products.indexOf(parent)]);
-    numbers[index] = numbers[index] > 0 ? numbers[index]-1 : 0;
-    console.log(numbers);
-    number.innerHTML = numbers[index] ;
+    if (e.target.getAttribute("class") === "product__add")
+        numbers[index]++;
+    else
+        numbers[index] = numbers[index] > 0 ? numbers[index] - 1 : 0;
+    number.innerHTML = numbers[index];
 }
